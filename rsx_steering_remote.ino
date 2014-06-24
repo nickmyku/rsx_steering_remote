@@ -20,18 +20,18 @@ const char ESCAPE  = 177;  //escape key
 
 //globals
 int val = 0;  //value of analog pin 
-const int ANALOG_ERROR =  12;  //range to adjust for noise in analog signal
+const int ANALOG_ERROR =  15;  //range to adjust for noise in analog signal
 const int IDLE_DELAY   = 100;  //delay time for loop execution
 const int WRITE_DELAY  = 150;  //time that output pin states are held for cruise control outputs
 const int KEY_DELAY    = 175;
 const int HOLD_TIME    = 600;  //time which needs to pass before button held event is registered
-const int RESUME_V     = 195;//208;  //3.85V
-const int CANCEL_V     = 290;//300;  //3.00V
-const int SET_V        = 380;//385;  //2.08V
-const int UP_V         =  10;// 40;  //1.46V
-const int NEXT_V       =  50;// 78;  //0.78V
-const int DN_V         = 120;//146;  //0.40V
-const int ESC_V        =  25;// 57;  //0.57V
+const int RESUME_V     = 208;  //3.85V
+const int CANCEL_V     = 300;  //3.00V
+const int SET_V        = 385;  //2.08V
+const int UP_V         =  40;  //1.46V
+const int NEXT_V       =  78;  //0.78V
+const int DN_V         = 146;  //0.40V
+const int ESC_V        =  57;  //0.57V
 
 void setup()  {
   //define input output pins
@@ -67,9 +67,9 @@ void loop()  {
       setButton();
     }
     //escape buttons pressed, combination of down and next key
-    if(inRange(val, ESC_V)){
-      escapeKey();
-    }
+    //if(inRange(val, ESC_V)){
+    //  escapeKey();
+    //}
     //up button pressed
     if(inRange(val, UP_V)){
       upKey();
@@ -219,9 +219,9 @@ int getVoltage()  {
   int value_2 = 0;
   //read analog pin
   value_0 = analogRead(A_DATA);
-  delay(5);
+  delay(10);
   value_1 = analogRead(A_DATA);
-  delay(5);
+  delay(10);
   value_2 = analogRead(A_DATA);
   //remap output from 0 to 500 (0 to 5.00V)
   value_0 = map(value_0, 0, 1023, 0, 500);
