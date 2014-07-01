@@ -8,6 +8,7 @@ code behind steering wheel mounted stereo controls - re purposes the original cr
 I pulled the radio out of my 2002 Acura RSX Type-S and replaced it with a touchscreen computer running some custom mp3 player software. Touch screens are nice but sometimes its good to have physical buttons, espcially when you are moving at 65+mph in a tiny metal shell (a car). This code is part of a project that added physical volume control and play/pause buttons to control my mp3 player. It runs on a sparkfun arduino pro micro (5V) mounted in my dashboard. Full project write up available on my blog - [Electric Campfire](http://electriccampfire.info/2014/06/12/steering-wheel-stereo-controls/)
 
 Info on MP3 Player project [is on my blog](http://electriccampfire.info/2013/12/08/rsx-in-dash-computer/)
+
 Git Repo for MP3 Player software is on [GitHub](https://github.com/nickmyku/RSX_MP3_Player)
 
 ###Function
