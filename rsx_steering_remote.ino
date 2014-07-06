@@ -219,10 +219,15 @@ int getVoltage()  {
   int value_2 = 0;
   //read analog pin
   value_0 = analogRead(A_DATA);
-  delay(10);
-  value_1 = analogRead(A_DATA);
-  delay(10);
-  value_2 = analogRead(A_DATA);
+  if(value_0 < (500-ANALOG_ERROR)){
+    delay(5);
+    value_1 = analogRead(A_DATA);
+    delay(5);
+    value_2 = analogRead(A_DATA);
+  }
+  else {
+    return value_0;
+  }
   //remap output from 0 to 500 (0 to 5.00V)
   value_0 = map(value_0, 0, 1023, 0, 500);
   value_1 = map(value_1, 0, 1023, 0, 500);
