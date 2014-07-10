@@ -23,6 +23,7 @@ int val = 0;  //value of analog pin
 const int ANALOG_ERROR =  15;  //range to adjust for noise in analog signal
 const int IDLE_DELAY   = 100;  //delay time for loop execution
 const int WRITE_DELAY  = 150;  //time that output pin states are held for cruise control outputs
+const int COMMAND_DELAY= 250;  //delay after play or next button press
 const int KEY_DELAY    = 175;
 const int HOLD_TIME    = 600;  //time which needs to pass before button held event is registered
 const int RESUME_V     = 208;  //3.85V
@@ -200,6 +201,8 @@ void nextKey()  {
       val = getVoltage();
       delay(150);
     }
+    //additional delay to prevent multiple next press error
+    delay(COMMAND_DELAY);
   }
   //if it is greater then hold threashold play/pause song
   else  {
@@ -209,6 +212,8 @@ void nextKey()  {
       val = getVoltage();
       delay(refresh_delay);
     }
+    //additional delay to prevent multiple play pause
+    delay(COMMAND_DELAY);
   }
 }
 
@@ -217,19 +222,22 @@ int getVoltage()  {
   int value_0 = 0;
   int value_1 = 0;
   int value_2 = 0;
-  //read analog pin
+  //read first analog value
   value_0 = analogRead(A_DATA);
+  //remap first value
+  value_0 = map(value_0, 0, 1023, 0, 500);
+  //if first value was less than 500 then take more analog readings
   if(value_0 < (500-ANALOG_ERROR)){
     delay(5);
     value_1 = analogRead(A_DATA);
     delay(5);
     value_2 = analogRead(A_DATA);
   }
+  //if its not then dont take any more samples and return the first value
   else {
     return value_0;
   }
   //remap output from 0 to 500 (0 to 5.00V)
-  value_0 = map(value_0, 0, 1023, 0, 500);
   value_1 = map(value_1, 0, 1023, 0, 500);
   value_2 = map(value_2, 0, 1023, 0, 500);
   //averagw values
